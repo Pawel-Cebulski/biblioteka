@@ -29,13 +29,14 @@ jQuery(document).ready(function() {
         e.preventDefault();
         var url = jQuery(this).attr('href');
         var id = getURLParameter(url, 'id');
-        console.log(id);
+        var row = jQuery(this).parent().parent();
         jQuery.ajax({
             type: 'post',
             dataType: 'json',
             url: myAjax.ajaxurl,
             data: {action: 'delete_book', book_id: id},
             success: function(data) {
+                row.hide();
             },
             error: function(data) {
                 alert('Wystąpił błąd krytyczny aplikacji ;)');
@@ -48,13 +49,20 @@ jQuery(document).ready(function() {
         e.preventDefault();
         var url = jQuery(this).attr('href');
         var id = getURLParameter(url, 'id');
-        console.log(id);
+        var title = jQuery(this).parent().parent().find('input[name="title"]').val();
+        var author = jQuery(this).parent().parent().find('input[name="author"]').val();
+        var year = jQuery(this).parent().parent().find('input[name="year"]').val();
+        var publisher = jQuery(this).parent().parent().find('input[name="publisher"]').val();
+        var description = jQuery(this).parent().parent().find('textarea[name="description"]').val();
+        var button = jQuery(this);
         jQuery.ajax({
             type: 'post',
             dataType: 'json',
             url: myAjax.ajaxurl,
-            data: {action: 'edit_book', book_id: id},
+            data: {action: 'edit_book', title: title, author: author, year: year, publisher: publisher, description: description, book_id: id},
             success: function(data) {
+                jQuery('.success_msg').hide();
+                jQuery('<div class="success_msg"><p>' + data.message + '</p></div>').insertAfter(button);
             },
             error: function(data) {
                 alert('Wystąpił błąd krytyczny aplikacji ;)');
