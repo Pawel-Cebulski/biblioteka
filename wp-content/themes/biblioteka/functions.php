@@ -32,14 +32,10 @@ add_action('init', 'load_my_ajax');
 function load_my_ajax() {
 
     wp_register_script("my_ajax_code", get_template_directory_uri() . '/ajax.js', array('jquery'));
+    $protocol = isset($_SERVER["HTTPS"]) ? 'https://' : 'http://';
+    wp_localize_script('my_ajax_code', 'myAjax', array('ajaxurl' => admin_url("admin-ajax.php", $protocol)));
 
     wp_enqueue_script('jquery');
-
-    $protocol = isset($_SERVER["HTTPS"]) ? 'https://' : 'http://';
-    $params = array(
-        'ajaxurl' => admin_url('admin-ajax.php', $protocol)
-    );
-    wp_localize_script('my_ajax_code', 'myAjax', $params);
     wp_enqueue_script('my_ajax_code');
 }
 

@@ -516,3 +516,6 @@ tbody tr td textarea{
 #books_list, .edit_book{
     position: relative;
 }
+.new_row td{
+    padding-top: 2px;
+}

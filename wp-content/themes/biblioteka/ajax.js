@@ -11,8 +11,9 @@ jQuery(document).ready(function() {
             dataType: 'json',
             url: myAjax.ajaxurl,
             success: function(data) {
-                jQuery('<tr class="book_id_' + data.new_book.id + '"><td class="cell-1"><input type="text" name="title" value="' + data.new_book.title + '"></td><td class="cell-2"><input type="text" name="author" value="' + data.new_book.author + '"></td><td class="cell-3"><input type="number" name="year" value="' + data.new_book.year + '"></td><td class="cell-4"><input type="text" name="publisher" value="' + data.new_book.publisher + '"></td><td class="cell-5"><textarea name="description" rows="1">' + data.new_book.description + '</textarea></td><td class="cell-6"><a class="edit_book" book_id=' + data.new_book.id + ' href="'+ myAjax.ajaxurl +'?action=edit_book&id=' + data.new_book.id + '">Zapisz</a><a class="delete_book" href="'+ myAjax.ajaxurl +'?action=delete_book&id=' + data.new_book.id + '">Usuń</a></td></tr>').insertAfter(jQuery('.book_id_' + (data.new_book.id - 1)));
-                jQuery('<div class="message_success">' + data.new_book.id + '</div>').insertAfter(jQuery('#ajax_add_new_book'));
+                var new_row = jQuery('<tr class="book_id_' + data.new_book.id + ' new_row"><td class="cell-1"><input type="text" name="title" value="' + data.new_book.title + '"></td><td class="cell-2"><input type="text" name="author" value="' + data.new_book.author + '"></td><td class="cell-3"><input type="number" name="year" value="' + data.new_book.year + '"></td><td class="cell-4"><input type="text" name="publisher" value="' + data.new_book.publisher + '"></td><td class="cell-5"><textarea name="description" rows="1">' + data.new_book.description + '</textarea></td><td class="cell-6"> <!-- <a class="edit_book" book_id=' + data.new_book.id + ' href="' + myAjax.ajaxurl + '?action=edit_book&id=' + data.new_book.id + '">Zapisz</a><a class="delete_book" href="' + myAjax.ajaxurl + '?action=delete_book&id=' + data.new_book.id + '">Usuń</a> --> </td></tr>');
+                new_row.insertAfter(jQuery('.book_id_' + (data.new_book.id - 1)));
+//                new_row.appendTo(jQuery('#rows'));
             },
             error: function(data) {
                 alert('Wystąpił błąd krytyczny aplikacji ;)');
@@ -36,7 +37,7 @@ jQuery(document).ready(function() {
             url: myAjax.ajaxurl,
             data: {action: 'delete_book', book_id: id},
             success: function(data) {
-                row.hide();
+                row.remove();
             },
             error: function(data) {
                 alert('Wystąpił błąd krytyczny aplikacji ;)');

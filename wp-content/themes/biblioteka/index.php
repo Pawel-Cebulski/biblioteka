@@ -28,10 +28,10 @@ get_header();
                                 <th class="cell-6">Opcje</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="rows">
                             <?php foreach ($books as $book) { ?>
                                 <?php //                                                var_dump($book);?>
-                                <tr class="book_id_<?php echo $book['id']; ?>">
+                                <tr class="book_id_<?php echo $book['id']; ?> book_row">
                                     <td class="cell-1"><input type="text" name="title" value="<?php echo $book['title']; ?>"></td>
                                     <td class="cell-2"><input type="text" name="author" value="<?php echo $book['author']; ?>"></td>
                                     <td class="cell-3"><input type="number" name="year" value="<?php echo $book['year']; ?>"></td>
